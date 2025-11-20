@@ -105,7 +105,7 @@ form {
   flex-direction: column;
   border: 1px solid black;
   height: fit-content;
-  min-height: 70vh;
+  min-height: 0vh;
   width: 50vw;
   margin: auto;
   border-bottom-left-radius: 10px;
@@ -194,7 +194,7 @@ function add(taskText) {
   let error = document.createElement(`li`);
 
   if (input == "") {
-    error.innerHTML = "enter a task";
+    error.innerHTML = "cateory can not be empty";
     error.style.color = "red";
     error.style.opacity = "1";
 
@@ -220,7 +220,7 @@ function add(taskText) {
 
     let del = document.createElement("button");
     del.classList.add("del");
-    del.innerText = "🗑️";
+    
 
     let div1 = document.createElement("span");
     div1.classList.add("div1");
@@ -236,19 +236,7 @@ function add(taskText) {
       document.getElementById("input").value = "";
     }
 
-    let check = true;
-    btn1.onclick = function () {
-      if (check) {
-        btn1.style.backgroundColor = "cyan";
-        span1.style.textDecoration = "line-through";
-        del.style.textDecoration = "none";
-      } else if (!check) {
-        btn1.style.backgroundColor = "white";
-        span1.style.textDecoration = "none";
-      }
-      check = !check;
-      
-    };
+    
 
     del.onclick = function () {
       list.removeChild(todolists);
