@@ -48,11 +48,11 @@ def vendor_login():
         flash("Invalid Vendor credentials", "danger")
         return redirect(url_for("admin"))
 
-@app.route("/vendor_r",methods=["POST","GET"])
+@app.route("/vendor_r")
 def vendor_r():
-            return render_template("vendor_dashboard.html")
+            return render_template("vendor_register.html")
 
-@app.route("/vendor_register")
+@app.route("/vendor_register", methods=["POST","GET"])
 def vendor_register():
             r_name=request.form["res_name"]
             ow_name=request.form["Ow_name"]
@@ -66,14 +66,13 @@ def vendor_register():
             uname=request.form["username"]
             password=request.form["password"]
             
-            x=0
-            query = """INSERT INTO vendor (, bname, bseats, bstrength, bcourses_s1, bcourses_s2) 
-                       VALUES (%s, %s, %s, %s, %s, %s)"""
+            query = """INSERT INTO vendors (USERNAME,PASSWORD ,NAME, RES_NAME,EMAIL,P_NUM,ADDRESS,CITY,TYPE,FSSAI,GSTIN )
+            VALUES (%s, %s, %s, %s, %s, %s,%s, %s, %s, %s, %s)"""
              
-            values = ()
+            values = (uname,password,ow_name,r_name,email,ph_num,address,city,type,fssai,gstin)
             crs.execute(query, values)
 
-            crs.execute(f"CREATE TABLE {x}(sid INT PRIMARY KEY, sname VARCHAR(100), password VARCHAR(100), sbranch VARCHAR(100), semester INT,scourses VARCHAR(255))")
+            crs.execute(f"CREATE TABLE {uname}(category VARCHAR(100), PID INT PRIMARY KEY, PNAME VARCHAR(100), PRICE FLOAT, Discount VARCHAR(5)")
 
 @app.route("/vendor/dashboard")
 def vendor_dashboard():
