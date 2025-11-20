@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Vendor Dashboard</title>
+
+<style>
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: #faf8f6;
+    font-family: "Inter", "Segoe UI", Arial, sans-serif;
+    color: #222;
+  }
+  .cat-name,
+.prod-name {
+    text-transform: capitalize;
+}
+
+  header {
+    background: #fc8019;
+    padding: 18px 28px;
+    color: #fff;
+    font-size: 24px;
+    font-weight: 700;
+    letter-spacing: 0.2px;
+    box-shadow: 0 4px 18px rgba(252,128,25,0.14);
+  }
+
+  .container {
+    max-width: 980px;
+    margin: 26px auto;
+    padding: 0 16px;
+  }
+
+  .add-cat-box {
+    display:flex;
+    gap:10px;
+    margin-bottom:22px;
+  }
+
+  input, button {
+    font-size:15px;
+    padding:10px 12px;
+    border-radius:10px;
+    border:1px solid #e6e0db;
+    outline: none;
+  }
+
+  input:focus { 
+    box-shadow: 0 0 0 4px rgba(252,128,25,0.08); 
+    border-color:#f59c42; 
+  }
+
+  .btn {
+    background:#fc8019;
+    color:white;
+    border:none;
+    cursor:pointer;
+    font-weight:600;
+    transition: transform .12s ease, background .12s ease;
+  }
+  .btn:hover { transform: translateY(-2px); background:#e06e09; }
+
+ 
+  .category {
+    background: #fff;
+    padding: 18px;
+    margin-bottom: 16px;
+    border-radius: 14px;
+    box-shadow: 0 6px 20px rgba(33,33,33,0.06);
+  }
+
+  .category-header {
+    display:flex;
+    justify-content:space-between;
+    gap:12px;
+    align-items:center;
+  }
+
+  .cat-name { 
+    font-size:20px; 
+    font-weight:700; 
+    color:#2b2b2b; 
+  }
+
+  .cat-actions { 
+    display:flex; 
+    gap:8px; 
+    align-items:center; 
+  }
+
+  .edit-input { 
+    display:flex; 
+    gap:10px; 
+    margin-top:12px; 
+  }
+
+ 
+  .product-box {
+    display:flex;
+    gap:10px;
+    margin-top:14px;
+    align-items:center;
+  }
+  .product-box input[type="number"] { max-width:130px; }
+
+  
+  .product-list { 
+    margin-top:16px; 
+    display:flex; 
+    flex-direction:column; 
+    gap:10px; 
+  }
+
+  .product-item {
+    display:flex;
+    align-items:center;
+    gap:12px;
+    background: linear-gradient(180deg, #fff7f0, #fffaf6);
+    padding:12px 14px;
+    border-radius:10px;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.04);
+  }
+
+  .prod-left {
+    display:flex;
+    align-items:center;
+    gap:12px;
+    flex:1;
+    min-width: 0;
+  }
+
+  .prod-name {
+    font-size:15px;
+    font-weight:600;
+    color:#2b2b2b;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .product-price {
+    min-width:96px;
+    text-align:right;
+    font-weight:700;
+    color:#1e8a3a;
+    font-size:15px;
+  }
+
+  .prod-actions {
+    display:flex;
+    gap:8px;
+    align-items:center;
+    margin-left:8px;
+  }
+
+  .delete-btn {
+    background:#ef4444;
+    color:white;
+    border:none;
+    padding:8px 10px;
+    border-radius:8px;
+    cursor:pointer;
+    font-weight:600;
+  }
+
+  
+  @media (max-width:600px) {
+    .product-price { min-width:72px; font-size:14px; }
+    .product-box { flex-direction: column; align-items: stretch; }
+    .product-box input[type="number"] { max-width:100%; }
+  }
+
+  
+  .empty-text {
+    color:#777; 
+    margin-top:10px;
+  }
+</style>
+</head>
+<body>
+
+<header>Vendor Dashboard</header>
+
+<div class="container">
+  <div class="add-cat-box">
+    <input id="categoryName" placeholder="New category name..." />
+    <button class="btn" onclick="addCategory()">Add Category</button>
+  </div>
+
+  <div id="categories"></div>
+</div>
+
+<script>
+  let categories = [];
+
+  function addCategory() {
+    const name = document.getElementById('categoryName').value.trim();
+    if (!name) return alert('Please enter a category name.');
+    categories.push({ id: Date.now(), name, products: [], editing: false });
+    document.getElementById('categoryName').value = '';
+    render();
+  }
+
+  function toggleEditCategory(id) {
+    categories = categories.map(c => 
+      c.id === id ? {...c, editing: !c.editing} : c
+    );
+    render();
+  }
+
+  function saveCategoryName(id) {
+    const input = document.getElementById('edit-cat-' + id);
+    const newName = input?.value.trim();
+    if (!newName) return alert('Category name cannot be empty.');
+    
+    categories = categories.map(c => 
+      c.id === id ? {...c, name: newName, editing:false} : c
+    );
+    render();
+  }
+
+  function deleteCategory(id) {
+    if (!confirm('Delete this category and its products?')) return;
+    categories = categories.filter(c => c.id !== id);
+    render();
+  }
+
+  function addProduct(catId) {
+    const nameEl = document.getElementById('prod-name-' + catId);
+    const priceEl = document.getElementById('prod-price-' + catId);
+    const name = nameEl.value.trim();
+    const price = priceEl.value.trim();
+    
+    if (!name || !price) return alert('Please enter both product name and price.');
+
+    const priceNum = Number(price);
+    if (Number.isNaN(priceNum) || priceNum < 0) return alert('Enter a valid price.');
+
+    categories = categories.map(c =>
+      c.id === catId 
+        ? {...c, products: [...c.products, { id: Date.now(), name, price: priceNum.toFixed(2) }]} 
+        : c
+    );
+
+    nameEl.value = '';
+    priceEl.value = '';
+    render();
+  }
+
+  function deleteProduct(catId, prodId) {
+    categories = categories.map(c =>
+      c.id === catId 
+        ? {...c, products: c.products.filter(p => p.id !== prodId)} 
+        : c
+    );
+    render();
+  }
+
+  function render() {
+    const container = document.getElementById('categories');
+    container.innerHTML = '';
+
+    categories.forEach(cat => {
+      const card = document.createElement('div');
+      card.className = 'category';
+
+      const emptyText = cat.products.length === 0 
+        ? '<div class="empty-text">No products yet — add one above.</div>'
+        : '';
+
+      card.innerHTML = `
+        <div class="category-header">
+          <div class="cat-name">${escapeHtml(cat.name)}</div>
+          <div class="cat-actions">
+            <button class="btn" onclick="toggleEditCategory(${cat.id})">
+              ${cat.editing ? 'Cancel' : 'Edit'}
+            </button>
+            <button class="delete-btn" onclick="deleteCategory(${cat.id})">Delete</button>
+          </div>
+        </div>
+
+        ${cat.editing ? `
+          <div class="edit-input">
+            <input id="edit-cat-${cat.id}" value="${escapeHtml(cat.name)}" />
+            <button class="btn" onclick="saveCategoryName(${cat.id})">Save</button>
+          </div>
+        ` : ''}
+
+        <div class="product-box">
+          <input id="prod-name-${cat.id}" placeholder="Product name (e.g. Paneer Butter Masala)" />
+          <input id="prod-price-${cat.id}" type="number" step="0.01" min="0" placeholder="Price ₹" />
+          <button class="btn" onclick="addProduct(${cat.id})">Add</button>
+        </div>
+
+        <div class="product-list">
+          ${emptyText}
+          ${cat.products.map(p => `
+            <div class="product-item">
+              <div class="prod-left">
+                <div class="prod-name">${escapeHtml(p.name)}</div>
+              </div>
+              <div class="product-price">₹${escapeHtml(p.price)}</div>
+              <div class="prod-actions">
+                <button class="delete-btn" onclick="deleteProduct(${cat.id}, ${p.id})">Delete</button>
+              </div>
+            </div>
+          `).join('')}
+        </div>
+      `;
+      
+      container.appendChild(card);
+    });
+  }
+
+
+  function escapeHtml(str) {
+    if (str === undefined || str === null) return '';
+    return String(str)
+      .replaceAll('&', '&amp;')
+      .replaceAll('<', '&lt;')
+      .replaceAll('>', '&gt;')
+      .replaceAll('"', '&quot;')
+      .replaceAll("'", '&#039;');
+  }
+
+  render();
+</script>
+
+</body>
+</html>

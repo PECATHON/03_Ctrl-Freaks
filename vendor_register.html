@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vendor Registration | Swiggy Style</title>
+
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, Helvetica, sans-serif;
+            background: #f7f7f7;
+        }
+
+        .container {
+            width: 450px;
+            margin: 40px auto;
+            background: #fff;
+            padding: 30px;
+            border-radius: 18px;
+            box-shadow: 0 0 15px rgba(0,0,0,0.1);
+        }
+
+        h2 {
+            text-align: center;
+            color: #ff6600;
+            margin-bottom: 20px;
+        }
+
+        label {
+            font-size: 1.1em;
+            font-weight: 600;
+            margin-bottom: 5px;
+            display: block;
+        }
+
+        input, textarea, select {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 15px;
+            border-radius: 10px;
+            border: 1px solid #ddd;
+            font-size: 1em;
+            box-shadow: 0px 0px 8px rgba(220, 220, 220, 0.4);
+        }
+
+        textarea {
+            resize: none;
+            height: 80px;
+        }
+
+        .btn {
+            width: 100%;
+            background: #ff6600;
+            color: white;
+            border: none;
+            padding: 15px;
+            border-radius: 12px;
+            font-size: 1.2em;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .btn:hover {
+            background: #ff7f32;
+            transform: scale(1.05);
+        }
+
+        .login-link {
+            text-align: center;
+            margin-top: 10px;
+        }
+
+        .login-link a {
+            text-decoration: none;
+            color: #ff6600;
+            font-weight: 600;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h2>Vendor Registration</h2>
+
+        <form>
+
+            <label>Restaurant Name</label>
+            <input type="text" placeholder="Enter Restaurant Name" required>
+
+            <label>Owner Name</label>
+            <input type="text" placeholder="Enter Owner/Manager Name" required>
+
+            <label>Phone Number</label>
+            <input type="tel" placeholder="Enter Mobile Number" required>
+
+            <label>Email</label>
+            <input type="email" placeholder="Enter Email Address" required>
+
+            <label>Full Address</label>
+            <textarea placeholder="Restaurant Address (with landmark)" required></textarea>
+
+            <label>City</label>
+            <input type="text" placeholder="Enter City" required>
+
+            <label>Restaurant Type</label>
+            <select required>
+                <option value="">Select Type</option>
+                <option>Veg Only</option>
+                <option>Non-Veg</option>
+                <option>Both Veg & Non-Veg</option>
+                <option>Beverages & Snacks</option>
+                <option>Bakery</option>
+            </select>
+
+            <label>FSSAI License Number</label>
+            <input type="text" placeholder="Enter FSSAI Number" required>
+
+            <label>GST Number (Optional)</label>
+            <input type="text" placeholder="Enter GST Number">
+
+            <label>Username</label>
+            <input type="text" placeholder="Create a Username" required>
+
+            <label>Password</label>
+            <input type="password" placeholder="Create a Password" required>
+
+            <button class="btn" >Register</button>
+
+            
+
+        </form>
+    </div>
+
+</body>
+</html>
