@@ -33,7 +33,9 @@ def admin_login():
         flash("Invalid Admin credentials", "danger")
         return redirect(url_for("admin"))
 
-query = """INSERT INTO branch (bid, bname, bseats, bstrength, bcourses_s1, bcourses_s2) 
+@app.route("/vendor_login", methods=["POST"])
+def vendor_menu():
+            query = """INSERT INTO vendor (bid, bname, bseats, bstrength, bcourses_s1, bcourses_s2) 
                        VALUES (%s, %s, %s, %s, %s, %s)"""
              
             values = (bid, bname, bseats,0,bcourses_s1_str,bcourses_s2_str)
