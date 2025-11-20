@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Registration - Campus Food Delivery</title>
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #78cce5, #67a5c3);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .container {
+            background: #ffffff;
+            width: 380px;
+            padding: 30px;
+            border-radius: 18px;
+            box-shadow: 0 10px 35px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            position: relative; /* For popup */
+        }
+
+        .container h2 {
+            margin-bottom: 20px;
+            color: #6dcbd2;
+            font-weight: 600;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 12px;
+            margin: 8px 0;
+            border: none;
+            border-radius: 10px;
+            background: #f3f3f3;
+            transition: 0.3s;
+            font-size: 15px;
+        }
+
+        input:focus, select:focus {
+            outline: none;
+            background: #ffe6eb;
+            box-shadow: 0 0 6px #6dcbd2;
+        }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            margin-top: 10px;
+            border: none;
+            background: #6dcbd2;
+            color: white;
+            font-size: 16px;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        button:hover {
+            background: #17bdc9;
+            transform: scale(1.03);
+        }
+
+        /* Popup inside form */
+        .popup {
+            display: none;
+            position: absolute;
+            top: 55%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: #ffffff;
+            padding: 15px;
+            border-radius: 12px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+            width: 260px;
+            max-width: 90%;
+            text-align: center;
+            animation: zoomIn 0.2s ease-in-out;
+        }
+
+        .popup h3 {
+            font-size: 16px;
+            margin-bottom: 8px;
+        }
+
+        .popup input {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+            border-radius: 8px;
+            border: 1px solid #ccc;
+            font-size: 14px;
+        }
+
+        .popup button {
+            width: 48%;
+            padding: 8px;
+            font-size: 14px;
+            border-radius: 8px;
+        }
+
+        @keyframes zoomIn {
+            from { transform: translate(-50%, -50%) scale(0.8); opacity: 0; }
+            to { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>🍕 Student Signup 😋</h2>
+
+        <form action="register.php" method="POST">
+            <input type="text" name="name" placeholder="Full Name" required>
+            <input type="email" name="email" placeholder="College Email @edu.in" required>
+            <input type="text" name="student_id" placeholder="Student ID / Roll No." required>
+
+            <select name="hostel" id="hostel" required>
+                <option value="" disabled selected>Select Hostel / Block</option>
+                <option>Block A</option>
+                <option>Block B</option>
+                <option>Block C</option>
+                <option value="Other">Other</option>
+            </select>
+
+            <input type="tel" name="phone" placeholder="Phone No." pattern="[0-9]{10}" required>
+            <input type="password" name="password" placeholder="Create Password" required>
+            <button type="submit">Create Account</button>
+        </form>
+
+        <!-- Popup inside form -->
+        <div class="popup" id="popup">
+            <h3>Enter Your Location</h3>
+            <input type="text" id="customLocation" placeholder="Enter Hostel/Block">
+            <div style="display:flex; gap:5px;">
+                <button type="button" onclick="saveLocation()">Save</button>
+                <button type="button" onclick="closePopup()">Cancel</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById("hostel").addEventListener("change", function() {
+            if (this.value === "Other") {
+                document.getElementById("popup").style.display = "block";
+            }
+        });
+
+        function closePopup() {
+            document.getElementById("popup").style.display = "none";
+        }
+
+        function saveLocation() {
+            let customValue = document.getElementById("customLocation").value;
+            if (customValue.trim() !== "") {
+                let select = document.getElementById("hostel");
+                let option = new Option(customValue, customValue);
+                option.selected = true;
+                select.add(option);
+                select.value = customValue;
+            }
+            closePopup();
+        }
+    </script>
+</body>
+</html>
