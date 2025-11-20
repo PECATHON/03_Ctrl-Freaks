@@ -27,7 +27,7 @@ def client():
     return render_template("client_login.html")
 
 
-@app.route("/vendor_login", methods=["POST","GET"])
+@app.route("/vendor_login", methods=["POST"])
 def vendor_login():
     username = request.form["username"]
     password = request.form["password"]
@@ -46,7 +46,7 @@ def vendor_login():
                 break
     else:
         flash("Invalid Vendor credentials", "danger")
-        return redirect(url_for("admin"))
+        return redirect(url_for("vendor_dashboard"))
 
 @app.route("/vendor_r")
 def vendor_r():
@@ -68,11 +68,15 @@ def vendor_register():
             
             query = """INSERT INTO vendors (USERNAME,PASSWORD ,NAME, RES_NAME,EMAIL,P_NUM,ADDRESS,CITY,TYPE,FSSAI,GSTIN )
             VALUES (%s, %s, %s, %s, %s, %s,%s, %s, %s, %s, %s)"""
-             
             values = (uname,password,ow_name,r_name,email,ph_num,address,city,type,fssai,gstin)
-            crs.execute(query, values)
 
-            crs.execute(f"CREATE TABLE {uname}(category VARCHAR(100), PID INT PRIMARY KEY, PNAME VARCHAR(100), PRICE FLOAT, Discount VARCHAR(5)")
+            crs.execute(query, values)
+            myDB.commit()
+
+
+            return redirect(url_for("vendor_dashboard"))
+
+            #crs.execute(f"CREATE TABLE {uname}(category VARCHAR(100), PID INT PRIMARY KEY, PNAME VARCHAR(100), PRICE FLOAT, Discount VARCHAR(5)")
 
 @app.route("/vendor/dashboard")
 def vendor_dashboard():
