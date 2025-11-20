@@ -5,6 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <style>
+        body{
+             background-image: url("./2.jpg");
+           
+    background-size: cover;       
+    background-position: center; 
+    background-repeat: repeat;
+        }
         main{
             height: 84vh;
             display: flex;
@@ -16,9 +23,9 @@
             width: 100%;
             border-radius: 20px;
             border: 0px;
-            box-shadow: 0px 0px 10px 1px rgb(196, 193, 193);
-            width: 34vw;
-            min-height: 60vh;
+            background-color: white;
+            width: 30vw;
+            min-height: 50vh;
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -32,26 +39,29 @@
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            text-align: center;    
-        }
-        input{
+            text-align: center;
+            
+         }
+         input{
+           text-align: center;
             height: 50px;
             width: 370px;
 
             font-size: 1.1em;
             border-radius: 10px;
             border: none;
-            box-shadow: 0px 0px 10px 1px rgb(210, 208, 207);
-        }
-        label{
-        margin-top: 10px;
-        font-family: Arial, Helvetica, sans-serif;
+           box-shadow: 0px 0px 10px 1px rgb(210, 208, 207);
 
-        font-size: 1.7em;
-        }
+         }
+         label{
+            margin-top: 10px;
+            font-family: Arial, Helvetica, sans-serif;
 
-        button{
-            background-color: rgb(245, 125, 51);
+            font-size: 1.7em;
+
+         }
+         button{
+            background: linear-gradient(180deg,rgb(109, 203, 210),rgb(86, 154, 159));
             width: 300px;
             box-shadow: 0px 0px 10px 1px rgb(210, 208, 207);
             font-size: 1.5em;
@@ -61,49 +71,53 @@
             margin-top: 20px;
             transition: 0.2s ease-in-out;
 
-        }
-        button:hover{
-        transition: 0.2s ease-in-out;
-        transform: scale(1.1);
-            background-color: rgb(245, 125, 51);
-        }
-        button:hover:active{
-        transition: 0.2s ease-in-out;
-        transform: scale(0.9);
-            background-color: rgb(242, 188, 155);
-        }
-        .register{
-        margin-top: 20px;
-        width: 100%;
-        display: flex;
-        justify-content: right;
-        align-items: right;
-        text-align: right;
-        text-decoration: none;
-
-        }
-        a{
-        text-decoration: none;
-        
-        border-radius: 10px;
-        color: rgb(245, 125, 51);
-        transition: 0.2s ease-in-out;
-        
-        }
-        a:hover{
-        text-decoration: none;
-        color:rgb(255, 255, 255) ;
-        border-radius: 10px;
-        transition: 0.2s ease-in-out;
-        transform: scale(1.1);
-            background-color: rgb(245, 125, 51);
-            padding: 4px;
-
-        }
-        a:hover:active{
+         }
+         button:hover{
+            transition: 0.2s ease-in-out;
+            transform: scale(1.1);
+            color: white;
+            background-color:#6ce9ed;
+            
+         }
+         button:hover:active{
+            transition: 0.2s ease-in-out;
             transform: scale(0.9);
+             background-color: #578b8e;
+         }
+         .register{
+            margin-top: 20px;
+            width: 100%;
+            display: flex;
+            justify-content: right;
+            align-items: right;
+            text-align: right;
+            text-decoration: none;
+           
 
-        }
+         }
+         a{
+            text-decoration: none;
+            
+            border-radius: 10px;
+        color: rgb(81, 180, 180);
+         transition: 0.2s ease-in-out;
+            
+         }
+         a:hover{
+            text-decoration: none;
+            color:rgb(255, 255, 255) ;
+            border-radius: 10px;
+            transition: 0.2s ease-in-out;
+            transform: scale(1.1);
+                background-color: rgb(81, 180, 180);
+             padding: 4px;
+
+         }
+         a:hover:active{
+             transform: scale(0.9);
+
+         }
+         
     </style>
 </head>
 

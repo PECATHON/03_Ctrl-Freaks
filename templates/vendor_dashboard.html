@@ -182,7 +182,9 @@
 </head>
 <body>
 
-<header>Vendor Dashboard</header>
+<header>Vendor Dashboard
+<span id="details"></span>
+</header>
 
 <div class="container">
   <div class="add-cat-box">
@@ -195,7 +197,7 @@
 
 <script>
   let categories = [];
-
+let details=document.getElementById("details")
   function addCategory() {
     const name = document.getElementById('categoryName').value.trim();
     if (!name) return alert('Please enter a category name.');
