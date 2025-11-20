@@ -15,20 +15,20 @@ def home():
     return render_template("index.html")
 
 @app.route("/vendor")
-def home():
+def vendor():
     return render_template("vendor_login.html")
 
 @app.route("/admin")
-def home():
+def admin():
     return render_template("admin_login.html")
 
 @app.route("/client")
-def home():
+def client():
     return render_template("client_login.html")
 
 
 @app.route("/vendor_login", methods=["POST"])
-def admin_login():
+def vendor_login():
     username = request.form["username"]
     password = request.form["password"]
 
@@ -48,7 +48,7 @@ def admin_login():
         return redirect(url_for("admin"))
 
 @app.route("/vendor_register", methods=["POST"])
-def vendor_login():
+def vendor_register():
             x=0
             query = """INSERT INTO vendor (bid, bname, bseats, bstrength, bcourses_s1, bcourses_s2) 
                        VALUES (%s, %s, %s, %s, %s, %s)"""
@@ -57,6 +57,7 @@ def vendor_login():
             crs.execute(query, values)
 
             crs.execute(f"CREATE TABLE {x}(sid INT PRIMARY KEY, sname VARCHAR(100), password VARCHAR(100), sbranch VARCHAR(100), semester INT,scourses VARCHAR(255))")
+
 
 if __name__ == "__main__":
     app.run(debug=True)
