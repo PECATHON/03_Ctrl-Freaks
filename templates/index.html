@@ -6,21 +6,16 @@
     <title>Document</title>
     <style>
         *{
-            
         margin: 0px;
         padding: 0px;
         }
         body{
-             background-image: url("./1.jpg");
-    background-size: cover;       
-    background-position: center; 
-    background-repeat: repeat;
+            background-image: url("{{ url_for('static', filename='./1.jpg') }}");
+            background-size: cover;       
+            background-position: center; 
+            background-repeat: repeat;
         }
         main{
-            
-   
-
-
             display: flex;
             justify-content: center;
             align-items: center;
