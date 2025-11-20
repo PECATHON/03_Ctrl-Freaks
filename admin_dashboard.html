@@ -46,6 +46,15 @@
         color: white;
         transform: scale(1.06);
     }
+.tab-btn {
+    color: #f59e0b;
+    background: white;
+}
+
+.tab-btn.active {
+    background: #fc8019;
+    color: white;
+}
 
     .container {
         width: 90%;
@@ -142,17 +151,18 @@
 
 <!-- Tabs -->
 <div class="tabs">
-    <button class="tab-btn active" onclick="showTab('pending')" style="color: white; background-color:#f59e0b ;">Pending</button>
-    <button class="tab-btn" onclick="showTab('approved')" style="color:#f59e0b; background-color:white;">Approved</button>
+    <button class="tab-btn active" onclick="showTab('pending')">Pending</button>
+    <button class="tab-btn" onclick="showTab('approved')">Approved</button>
+
 </div>
 
 <div class="container">
 
-    <!-- Pending Vendors -->
-    <div id="pending-tab" ></div>
+   
+    <div id="pending-tab"></div>
 
     <!-- Approved Vendors -->
-    <div id="approved-tab" style="display:none; color: #444;"></div>
+    <div id="approved-tab" style="display:none;"></div>
 
 </div>
 
@@ -189,14 +199,19 @@ let pendingVendors = [
 
 let approvedVendors = [];
 
+// SWITCH TABS
+function showTab(tabName) {
+    // show/hide tab panels
+    document.getElementById("pending-tab").style.display = tabName === "pending" ? "block" : "none";
+    document.getElementById("approved-tab").style.display = tabName === "approved" ? "block" : "none";
 
-function showTab(tab) {
-    document.getElementById("pending-tab").style.display = tab === "pending" ? "block" : "none";
-    document.getElementById("approved-tab").style.display = tab === "approved" ? "block" : "none";
-
+    // remove active class from all tab buttons
     document.querySelectorAll(".tab-btn").forEach(btn => btn.classList.remove("active"));
+
+    // add active class to current tab button
     event.target.classList.add("active");
 }
+
 
 // RENDER CARDS
 function renderVendors() {
@@ -261,12 +276,14 @@ function renderCard(v, index, type) {
     `;
 }
 
+// APPROVE
 function approveVendor(index) {
     approvedVendors.push(pendingVendors[index]);
     pendingVendors.splice(index, 1);
     renderVendors();
 }
 
+// REJECT (removes from list)
 function rejectVendor(index) {
     pendingVendors.splice(index, 1);
     renderVendors();
