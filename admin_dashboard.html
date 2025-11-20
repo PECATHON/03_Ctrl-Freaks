@@ -161,14 +161,13 @@
    
     <div id="pending-tab"></div>
 
-    <!-- Approved Vendors -->
+  
     <div id="approved-tab" style="display:none;"></div>
 
 </div>
 
 <script>
 
-// ⭐ Insert your vendor details + menu manually here
 let pendingVendors = [
     {
         restaurantName: "Tasty Bites",
@@ -199,23 +198,23 @@ let pendingVendors = [
 
 let approvedVendors = [];
 
-// SWITCH TABS
+
 function showTab(tabName) {
-    // show/hide tab panels
+    
     document.getElementById("pending-tab").style.display = tabName === "pending" ? "block" : "none";
     document.getElementById("approved-tab").style.display = tabName === "approved" ? "block" : "none";
 
-    // remove active class from all tab buttons
+   
     document.querySelectorAll(".tab-btn").forEach(btn => btn.classList.remove("active"));
 
-    // add active class to current tab button
+   
     event.target.classList.add("active");
 }
 
 
-// RENDER CARDS
+
 function renderVendors() {
-    // PENDING LIST
+   
     const pendingBox = document.getElementById("pending-tab");
     pendingBox.innerHTML = "";
 
@@ -223,7 +222,7 @@ function renderVendors() {
         pendingBox.innerHTML += renderCard(v, i, "pending");
     });
 
-    // APPROVED LIST
+ 
     const approvedBox = document.getElementById("approved-tab");
     approvedBox.innerHTML = "";
 
@@ -232,7 +231,7 @@ function renderVendors() {
     });
 }
 
-// TEMPLATE FOR CARD
+
 function renderCard(v, index, type) {
     return `
         <div class="vendor-card">
@@ -276,14 +275,13 @@ function renderCard(v, index, type) {
     `;
 }
 
-// APPROVE
 function approveVendor(index) {
     approvedVendors.push(pendingVendors[index]);
     pendingVendors.splice(index, 1);
     renderVendors();
 }
 
-// REJECT (removes from list)
+
 function rejectVendor(index) {
     pendingVendors.splice(index, 1);
     renderVendors();

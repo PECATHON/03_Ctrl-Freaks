@@ -1,280 +1,136 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Admin Dashboard – Vendor Requests</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vendor Registration | Swiggy Style</title>
 
-<style>
-    body {
-        margin: 0;
-        font-family: Arial, sans-serif;
-        background: #f6f6f6;
-    }
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, Helvetica, sans-serif;
+            background: #f7f7f7;
+        }
 
-    header {
-        background: #fc8019;
-        padding: 20px;
-        font-size: 28px;
-        font-weight: bold;
-        color: white;
-        text-align: center;
-        box-shadow: 0px 4px 14px rgba(0,0,0,0.18);
-    }
+        .container {
+            width: 450px;
+            margin: 40px auto;
+            background: #fff;
+            padding: 30px;
+            border-radius: 18px;
+            box-shadow: 0 0 15px rgba(0,0,0,0.1);
+        }
 
-    .tabs {
-        display: flex;
-        justify-content: center;
-        margin-top: 20px;
-        gap: 20px;
-    }
+        h2 {
+            text-align: center;
+            color: #ff6600;
+            margin-bottom: 20px;
+        }
 
-    .tab-btn {
-        padding: 12px 22px;
-        background: #fff;
-        border-radius: 10px;
-        border: none;
-        font-size: 17px;
-        font-weight: bold;
-        cursor: pointer;
-        box-shadow: 0px 3px 10px rgba(0,0,0,0.1);
-        transition: 0.2s;
-    }
+        label {
+            font-size: 1.1em;
+            font-weight: 600;
+            margin-bottom: 5px;
+            display: block;
+        }
 
-    .tab-btn.active {
-        background: #fc8019;
-        color: white;
-        transform: scale(1.06);
-    }
+        input, textarea, select {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 15px;
+            border-radius: 10px;
+            border: 1px solid #ddd;
+            font-size: 1em;
+            box-shadow: 0px 0px 8px rgba(220, 220, 220, 0.4);
+        }
 
-    .container {
-        width: 90%;
-        max-width: 1100px;
-        margin: 25px auto;
-    }
+        textarea {
+            resize: none;
+            height: 80px;
+        }
 
-    .vendor-card {
-        background: white;
-        border-radius: 15px;
-        padding: 20px;
-        margin-bottom: 20px;
-        box-shadow: 0px 4px 14px rgba(0,0,0,0.12);
-    }
+        .btn {
+            width: 100%;
+            background: #ff6600;
+            color: white;
+            border: none;
+            padding: 15px;
+            border-radius: 12px;
+            font-size: 1.2em;
+            cursor: pointer;
+            transition: 0.2s;
+        }
 
-    .vendor-header {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-    }
+        .btn:hover {
+            background: #ff7f32;
+            transform: scale(1.05);
+        }
 
-    .vendor-name {
-        font-size: 22px;
-        font-weight: bold;
-    }
+        .login-link {
+            text-align: center;
+            margin-top: 10px;
+        }
 
-    .status {
-        padding: 7px 14px;
-        border-radius: 6px;
-        color: white;
-        font-size: 14px;
-        font-weight: bold;
-    }
+        .login-link a {
+            text-decoration: none;
+            color: #ff6600;
+            font-weight: 600;
+        }
 
-    .pending  { background: #f59e0b; }
-    .approved { background: #16a34a; }
-
-    .section-title {
-        margin-top: 15px;
-        font-size: 18px;
-        font-weight: bold;
-        color: #444;
-    }
-
-    ul {
-        padding-left: 18px;
-        margin-top: 8px;
-    }
-
-    li {
-        margin-bottom: 5px;
-    }
-
-    .category-block {
-        background: #fff4e6;
-        padding: 14px;
-        border-radius: 10px;
-        margin-top: 12px;
-    }
-
-    .product-item {
-        padding: 8px 10px;
-        background: #fff;
-        border-radius: 8px;
-        margin-bottom: 5px;
-        display: flex;
-        justify-content: space-between;
-        box-shadow: 0px 2px 8px rgba(0,0,0,0.06);
-    }
-
-    .action-row {
-        margin-top: 14px;
-    }
-
-    button {
-        padding: 10px 16px;
-        border: none;
-        cursor: pointer;
-        border-radius: 8px;
-        font-size: 15px;
-        font-weight: bold;
-        color: white;
-        margin-right: 10px;
-    }
-
-    .approve-btn { background: #16a34a; }
-    .reject-btn  { background: #dc2626; }
-</style>
+    </style>
 </head>
-
 <body>
 
-<header>Admin Dashboard – Vendor Management</header>
+    <div class="container">
+        <h2>Vendor Registration</h2>
 
-<!-- Tabs -->
-<div class="tabs">
-    <button class="tab-btn active" onclick="showTab('pending')" style="color: white; background-color:#f59e0b ;">Pending</button>
-    <button class="tab-btn" onclick="showTab('approved')" style="color:#f59e0b; background-color:white;">Approved</button>
-</div>
+        <form>
 
-<div class="container">
+            <label>Restaurant Name</label>
+            <input type="text" placeholder="Enter Restaurant Name" required>
 
-    <!-- Pending Vendors -->
-    <div id="pending-tab" ></div>
+            <label>Owner Name</label>
+            <input type="text" placeholder="Enter Owner/Manager Name" required>
 
-    <!-- Approved Vendors -->
-    <div id="approved-tab" style="display:none; color: #444;"></div>
+            <label>Phone Number</label>
+            <input type="tel" placeholder="Enter Mobile Number" required>
 
-</div>
+            <label>Email</label>
+            <input type="email" placeholder="Enter Email Address" required>
 
-<script>
+            <label>Full Address</label>
+            <textarea placeholder="Restaurant Address (with landmark)" required></textarea>
 
-// ⭐ Insert your vendor details + menu manually here
-let pendingVendors = [
-    {
-        restaurantName: "Tasty Bites",
-        owner: "Rohan Sharma",
-        phone: "9876543210",
-        email: "rohan@example.com",
-        address: "Jammu City",
-        type: "Both Veg & Non-Veg",
-        fssai: "FSSA99887",
-        gst: "GST78812",
-        menu: [
-            {
-                category: "Fast Food",
-                products: [
-                    { name: "Veg Burger", price: 129 },
-                    { name: "French Fries", price: 89 }
-                ]
-            },
-            {
-                category: "Beverages",
-                products: [
-                    { name: "Cold Coffee", price: 120 }
-                ]
-            }
-        ]
-    }
-];
+            <label>City</label>
+            <input type="text" placeholder="Enter City" required>
 
-let approvedVendors = [];
+            <label>Restaurant Type</label>
+            <select required>
+                <option value="">Select Type</option>
+                <option>Veg Only</option>
+                <option>Non-Veg</option>
+                <option>Both Veg & Non-Veg</option>
+                <option>Beverages & Snacks</option>
+                <option>Bakery</option>
+            </select>
 
+            <label>FSSAI License Number</label>
+            <input type="text" placeholder="Enter FSSAI Number" required>
 
-function showTab(tab) {
-    document.getElementById("pending-tab").style.display = tab === "pending" ? "block" : "none";
-    document.getElementById("approved-tab").style.display = tab === "approved" ? "block" : "none";
+            <label>GST Number (Optional)</label>
+            <input type="text" placeholder="Enter GST Number">
 
-    document.querySelectorAll(".tab-btn").forEach(btn => btn.classList.remove("active"));
-    event.target.classList.add("active");
-}
+             <label>Username</label>
+            <input type="text" placeholder="Create a Username" required>
 
-// RENDER CARDS
-function renderVendors() {
-    // PENDING LIST
-    const pendingBox = document.getElementById("pending-tab");
-    pendingBox.innerHTML = "";
+            <label>Password</label>
+            <input type="password" placeholder="Create a Password" required>
 
-    pendingVendors.forEach((v, i) => {
-        pendingBox.innerHTML += renderCard(v, i, "pending");
-    });
+            <button class="btn">Register</button>
 
-    // APPROVED LIST
-    const approvedBox = document.getElementById("approved-tab");
-    approvedBox.innerHTML = "";
-
-    approvedVendors.forEach((v, i) => {
-        approvedBox.innerHTML += renderCard(v, i, "approved");
-    });
-}
-
-// TEMPLATE FOR CARD
-function renderCard(v, index, type) {
-    return `
-        <div class="vendor-card">
-            <div class="vendor-header">
-                <div class="vendor-name">${v.restaurantName}</div>
-                <div class="status ${type}">${type.toUpperCase()}</div>
-            </div>
-
-            <div class="section-title">Details</div>
-            <ul>
-                <li><b>Owner:</b> ${v.owner}</li>
-                <li><b>Phone:</b> ${v.phone}</li>
-                <li><b>Email:</b> ${v.email}</li>
-                <li><b>Address:</b> ${v.address}</li>
-                <li><b>FSSAI:</b> ${v.fssai}</li>
-                <li><b>GST:</b> ${v.gst}</li>
-            </ul>
-
-            <div class="section-title">Menu</div>
-            ${v.menu.map(cat => `
-                <div class="category-block">
-                    <b>${cat.category}</b>
-                    ${cat.products.map(p => `
-                        <div class="product-item">
-                            <span>${p.name}</span>
-                            <b>₹${p.price}</b>
-                        </div>
-                    `).join("")}
-                </div>
-            `).join("")}
-
-            <div class="action-row">
-                ${
-                    type === "pending"
-                    ? `<button class="approve-btn" onclick="approveVendor(${index})">Approve</button>
-                       <button class="reject-btn" onclick="rejectVendor(${index})">Reject</button>`
-                    : ``
-                }
-            </div>
-        </div>
-    `;
-}
-
-function approveVendor(index) {
-    approvedVendors.push(pendingVendors[index]);
-    pendingVendors.splice(index, 1);
-    renderVendors();
-}
-
-function rejectVendor(index) {
-    pendingVendors.splice(index, 1);
-    renderVendors();
-}
-
-renderVendors();
-
-</script>
+            
+        </form>
+    </div>
 
 </body>
 </html>
