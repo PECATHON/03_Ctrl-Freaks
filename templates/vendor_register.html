@@ -84,28 +84,28 @@
     <div class="container">
         <h2>Vendor Registration</h2>
 
-        <form>
+        <form method="POST" action="/vendor_register">
 
             <label>Restaurant Name</label>
-            <input type="text" placeholder="Enter Restaurant Name" required>
+            <input type="text" name="res_name" placeholder="Enter Restaurant Name" required>
 
             <label>Owner Name</label>
-            <input type="text" placeholder="Enter Owner/Manager Name" required>
+            <input type="text" name="Ow_name" placeholder="Enter Owner/Manager Name" required>
 
             <label>Phone Number</label>
-            <input type="tel" placeholder="Enter Mobile Number" required>
+            <input type="tel" name="Ph_num" placeholder="Enter Mobile Number" required>
 
             <label>Email</label>
-            <input type="email" placeholder="Enter Email Address" required>
+            <input type="email" name="Email" placeholder="Enter Email Address" required>
 
             <label>Full Address</label>
-            <textarea placeholder="Restaurant Address (with landmark)" required></textarea>
+            <textarea name="Address"placeholder="Restaurant Address (with landmark)" required></textarea>
 
             <label>City</label>
-            <input type="text" placeholder="Enter City" required>
+            <input type="text" name="City" placeholder="Enter City" required>
 
             <label>Restaurant Type</label>
-            <select required>
+            <select name="Type" required>
                 <option value="">Select Type</option>
                 <option>Veg Only</option>
                 <option>Non-Veg</option>
@@ -115,16 +115,16 @@
             </select>
 
             <label>FSSAI License Number</label>
-            <input type="text" placeholder="Enter FSSAI Number" required>
+            <input type="text" name="FSSAI" placeholder="Enter FSSAI Number" required>
 
             <label>GST Number (Optional)</label>
-            <input type="text" placeholder="Enter GST Number">
+            <input type="text" name="GSTIN" placeholder="Enter GST Number">
 
              <label>Username</label>
-            <input type="text" placeholder="Create a Username" required>
+            <input type="text" name="username" placeholder="Create a Username" required>
 
             <label>Password</label>
-            <input type="password" placeholder="Create a Password" required>
+            <input type="password" name="password" placeholder="Create a Password" required>
 
             <button class="btn">Register</button>
 
